@@ -64,9 +64,18 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let imageURLPath = originalSize["url"] as! String
 //            print(imageURLPath)
             let imageURL = URL(string: imageURLPath)
+            
             cell.photoView.af_setImage(withURL: imageURL!)
         }
+        cell.selectionStyle = .none
         return cell
+    }
+        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! PhotoDetailViewController
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)!
+        vc.post = posts[indexPath.row]
     }
 
     override func didReceiveMemoryWarning() {
